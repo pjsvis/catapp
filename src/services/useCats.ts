@@ -8,6 +8,7 @@ const query = {
   query: {},
   options: {
     pagination: false,
+    refetchOnWindowFocus: false,
   },
   headers: {
     'x-api-key': 'a727925c-68b0-4a92-b790-e355b2c28c9c',
@@ -15,7 +16,7 @@ const query = {
 };
 
 const getCats = async () => {
-  const { data } = await axios.post(queryUrl, query);
+  const { data } = await axios.get(queryUrl, query);
   return data;
 };
 

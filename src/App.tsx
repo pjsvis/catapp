@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Upload } from './components/Upload';
-// import { ReactQueryDevtools } from 'react-query-devtools';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Home } from './components/Home';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -35,6 +35,7 @@ function App() {
                 </Switch>
               </div>
             </div>
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </Router>
       </ErrorBoundary>

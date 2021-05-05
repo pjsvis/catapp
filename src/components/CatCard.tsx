@@ -1,30 +1,19 @@
 import React from 'react';
+import { Cat } from '../services/cat';
 
-type CatCardProps = {
-  isCat: boolean;
+interface Props {
+  cat: Cat;
+}
+
+// NOTE: .grid-container div width is 150 in tachyons-ext.css
+const getHeight = (cat: Cat) => {
+  return cat.height * (150 / cat.width);
 };
 
-export function CatCard({ isCat }: CatCardProps) {
+export function CatCard({ cat }: Props) {
   return (
-    <section className="tc pa3 pa5-ns shadow-5 mt4">
-      <article className="hide-child relative ba b--black-20 mw5 center">
-        <img src="https://tachyons.io/img/cat-720.jpg" className="db" alt="Photo of Jesse Grant" />
-        <div className="pa2 bt b--black-20">
-          <a className="f6 db link dark-blue hover-blue" href="#">
-            Jesse Grant
-          </a>
-          <p className="f6 gray mv1">5 mutual friends</p>
-          <a className="link tc ph3 pv1 db bg-animate bg-dark-blue hover-bg-blue white f6 br1" href="#">
-            Add Friend
-          </a>
-        </div>
-        <a
-          className="child absolute top-1 right-1 ba bw1 black-40 grow no-underline br-100 w1 h1 pa2 lh-solid b"
-          href="#"
-        >
-          ×
-        </a>
-      </article>
-    </section>
+    <>
+      <img src={cat.url} className="" alt={cat.url} width={cat.width} height={getHeight(cat)} />
+    </>
   );
 }
