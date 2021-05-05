@@ -1,0 +1,21 @@
+### Cat Queries
+
+
+
+@baseUrl=https://api.thecatapi.com/v1/
+
+### Get random cat
+GET https://api.thecatapi.com/v1/images/search HTTP/1.1
+x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
+
+### Get my cat images
+GET https://api.thecatapi.com/v1/images HTTP/1.1
+x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
+
+### Get votes
+GET https://api.thecatapi.com/v1/votes HTTP/1.1
+x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
+
+### Get search
+GET https://api.thecatapi.com/v1/images/search?limit=100 HTTP/1.1
+x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
