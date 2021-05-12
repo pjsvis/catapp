@@ -1,10 +1,14 @@
 import React from 'react';
-import { Cat } from '../services/cat';
+import { useQueryClient } from 'react-query';
+import { Cat, VotePost } from '../services/cat';
 import { appConfig } from '../services/app-config';
 import { LikeAdd } from './LikeAdd';
-import { LikeRemove } from './LikeRemove';
+// import { LikeRemove } from './LikeRemove';
 import { VoteDown } from './VoteDown';
 import { VoteUp } from './VoteUp';
+import { ImageDelete } from './ImageDelete';
+import { useMutation } from 'react-query';
+import { deleteCatApi, favouriteCatApi, FavouritePost, voteCatApi } from '../services/cat-api';
 
 interface Props {
   cat: Cat;
@@ -12,25 +16,21 @@ interface Props {
 
 // NOTE: .grid-container div width is 150 in tachyons-ext.css
 // NOTE: We set the image width to 150px
-// NOTE: and adjust the image height by 150 / imageWidth
+// TODO: Find all refs to 150
 const catWidth = appConfig.imageSize;
 
 export function CatCard({ cat }: Props) {
-  const voteUp = (id: string) => {
-    console.log('Vote Up: ' + id);
-  };
+  // TODO: Invalidate cach if delete succeeds
+  // TODO: Add modal to confirm delete
+  const queryClient = useQueryClient();
+  const deleteCat = useMutation((imageId: string) => deleteCatApi(imageId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('cats');
+    },
+  });
+  const voteCat = useMutation((votePost: VotePost) => voteCatApi(votePost));
+  const favouriteCat = useMutation((favouritePost: FavouritePost) => favouriteCatApi(favouritePost));
 
-  const voteDown = (id: string) => {
-    console.log('Vote Down: ' + id);
-  };
-
-  const likeAdd = (id: string) => {
-    console.log('Add like: ' + id);
-  };
-
-  const likeRemove = (id: string) => {
-    console.log('Remove like: ' + id);
-  };
   return (
     <>
       <div className="cat-card">
@@ -41,19 +41,20 @@ export function CatCard({ cat }: Props) {
           <span>
             <span className="fl">
               <span>
-                <VoteDown onClick={() => voteDown(cat.id)} />
+                <VoteDown onClick={() => voteCat.mutate({ image_id: cat.id, value: 0 })} />
               </span>
+              <span className="ml2">{/* <LikeRemove onClick={() => likeRemove(cat.id)} /> */}</span>
               <span className="ml2">
-                <LikeRemove onClick={() => likeRemove(cat.id)} />
+                <ImageDelete onClick={() => deleteCat.mutate(cat.id)} />
               </span>
             </span>
             <span className="tc">{cat.id}</span>
             <span className="fr">
               <span>
-                <VoteUp onClick={() => voteUp(cat.id)} />
+                <VoteUp onClick={() => voteCat.mutate({ image_id: cat.id, value: 1 })} />
               </span>
               <span className="ml2">
-                <LikeAdd onClick={() => likeAdd(cat.id)} />
+                <LikeAdd onClick={() => favouriteCat.mutate({ image_id: cat.id })} />
               </span>
             </span>
           </span>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Cat } from '../services/cat';
-import { useCats } from '../services/use-cat-api';
+import { useGetCats } from '../services/use-cat-api';
 import { CatCardList } from './CatCardList';
 
 export function Home() {
-  const { isLoading, error, data }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useCats({
+  const { isLoading, error, data }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useGetCats({
     page: 0,
     limit: 20,
   });

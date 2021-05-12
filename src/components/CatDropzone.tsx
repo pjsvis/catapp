@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { UploadResponse } from '../services/cat';
 import { uploadFile } from '../services/upload-file';
 
@@ -11,15 +12,19 @@ const validateFile = (file: File) => {
   console.log(file);
 };
 
+// TODO: Check if original_filename exists
 export function CatDropzone() {
   const [error, setError] = useState<Error | null>(null);
   const [response, setResponse] = useState<AxiosResponse<UploadResponse> | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleResponse = (res: AxiosResponse<UploadResponse>) => {
     setResponse(res);
+    queryClient.invalidateQueries('cats');
     console.log(res);
   };
+
   const handleUpload = async (file: File) => {
     validateFile(file);
     setIsUploading(true);
