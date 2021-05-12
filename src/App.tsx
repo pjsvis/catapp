@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Home } from './components/Home';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { NavHeader } from './components/NavHeader';
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,16 +15,7 @@ function App() {
         <Router>
           <QueryClientProvider client={queryClient}>
             <div className="flex flex-column top-0">
-              <header className=" sans-serif bg-black-90 w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
-                <nav className="f6 fw6 ttu tracked">
-                  <a className="link dim white dib mr3" href="/" title="Home">
-                    Home
-                  </a>
-                  <a className="link dim white dib mr3" href="/upload" title="Upload">
-                    Upload
-                  </a>
-                </nav>
-              </header>
+              <NavHeader />
               <div>
                 <Switch>
                   <Route path="/upload">

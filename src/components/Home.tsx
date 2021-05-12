@@ -1,12 +1,13 @@
 import React from 'react';
 import { Cat } from '../services/cat';
-import { useCats } from '../services/useCats';
+import { useCats } from '../services/use-cat-api';
 import { CatCardList } from './CatCardList';
 
 export function Home() {
-  const { isLoading, error, data }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useCats();
-  // const catQuery = isLoading ? [] : data;
-  // const cats = !isLoading && catQuery ? catQuery : [];
+  const { isLoading, error, data }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useCats({
+    page: 0,
+    limit: 20,
+  });
 
   return (
     <>
@@ -14,7 +15,6 @@ export function Home() {
         <div>
           <CatCardList cats={data || []} />
         </div>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       </div>
       <div>
         {error ? (

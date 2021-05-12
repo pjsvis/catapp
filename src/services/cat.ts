@@ -47,3 +47,14 @@ export interface Weight {
   imperial: string;
   metric: string;
 }
+
+export interface VotePost {
+  image_id: string;
+  sub_id?: string;
+  value: number;
+}
+
+export interface UploadResponse {
+  status: number;
+  statusMessage: string;
+}

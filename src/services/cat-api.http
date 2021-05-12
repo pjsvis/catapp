@@ -17,5 +17,14 @@ GET https://api.thecatapi.com/v1/votes HTTP/1.1
 x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
 
 ### Get search
-GET https://api.thecatapi.com/v1/images/search?limit=100 HTTP/1.1
+GET https://api.thecatapi.com/v1/images/search?limit=10 HTTP/1.1
 x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
+
+### Get votes
+GET https://api.thecatapi.com/v1/votes?limit=10 HTTP/1.1
+x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
+
+### Get votes
+DELETE https://api.thecatapi.com/v1/images/{image_id} HTTP/1.1
+x-api-key: a727925c-68b0-4a92-b790-e355b2c28c9c
+

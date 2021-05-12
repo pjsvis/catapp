@@ -1,5 +1,8 @@
 # todo
 
+- add loading spinner
+- add toolbar items for favourites
+
 1. [] modern responsive styling
 2. [X] react
 3. [] 3rd party packages

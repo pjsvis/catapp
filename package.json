@@ -6,6 +6,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@zach.codes/use-upload": "^1.0.1",
     "animate.css": "^4.1.1",
+    "await-to-js": "^3.0.0",
     "axios": "^0.21.1",
     "date-fns": "^2.21.1",
     "font-awesome": "^4.7.0",
