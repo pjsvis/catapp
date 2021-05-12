@@ -48,7 +48,7 @@ export function CatCard({ cat }: Props) {
                 <ImageDelete onClick={() => deleteCat.mutate(cat.id)} />
               </span>
             </span>
-            <span className="tc">{cat.id}</span>
+            {/* <span className="tc">{cat.id}</span> */}
             <span className="fr">
               <span>
                 <VoteUp onClick={() => voteCat.mutate({ image_id: cat.id, value: 1 })} />

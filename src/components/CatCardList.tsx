@@ -9,7 +9,7 @@ type Props = {
 export function CatCardList({ cats }: Props) {
   return (
     <>
-      <div className="content mt1">
+      <div className="content mt1  animate__animated animate__fadeIn animate__delay-1s">
         <div className="grid-container">
           {cats.map((cat) => (
             <div key={cat.id}>
@@ -17,9 +17,6 @@ export function CatCardList({ cats }: Props) {
             </div>
           ))}
         </div>
-      </div>
-      <div>
-        <pre>{JSON.stringify(cats[0], null, 0)}</pre>
       </div>
     </>
   );

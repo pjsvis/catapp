@@ -13,6 +13,7 @@ export function NavHeader() {
             <i className="fa fa-lg fa-cloud-upload mr2" />
             Upload
           </a>
+          <div className="fr white f3">cat app</div>
         </nav>
       </header>
       <div className="sans-serif bg-black-10 w-100 ph3 pv1 pv1-ns ph4-m ph5-l">Hello nav toolbar</div>
