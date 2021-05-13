@@ -24,6 +24,7 @@ export function Home() {
         ) : null}
       </div>
       <div>{isLoading ? <i className="fa fas-spinner" /> : null}</div>
+      <div>{error ? <span>An error has occurred: {error.message}</span> : null}</div>
     </>
   );
 }

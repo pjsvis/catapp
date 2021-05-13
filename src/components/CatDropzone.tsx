@@ -9,10 +9,10 @@ const noop = () => {};
 
 const validateFile = (file: File) => {
   // TODO: Validate file
+  // TODO: Check if original_filename exists
   console.log(file);
 };
 
-// TODO: Check if original_filename exists
 export function CatDropzone() {
   const [error, setError] = useState<Error | null>(null);
   const [response, setResponse] = useState<AxiosResponse<UploadResponse> | null>(null);

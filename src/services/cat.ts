@@ -50,7 +50,7 @@ export interface Weight {
 
 export interface VotePost {
   image_id: string;
-  sub_id?: string;
+  sub_id: string;
   value: number;
 }
 

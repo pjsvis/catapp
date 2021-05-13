@@ -15,7 +15,7 @@ export interface GetCatQuery {
 }
 
 // get an array of cat images
-export const getCats = async ({
+export const getCatsApi = async ({
   page = 0,
   limit = 20,
   include_vote = 1,
@@ -27,7 +27,7 @@ export const getCats = async ({
   return data;
 };
 
-export const imageExists = async (original_filename: string): Promise<Cat[]> => {
+export const imageExistsApi = async (original_filename: string): Promise<Cat[]> => {
   const { data } = await axios.get(`/images?original_filename=${original_filename}`);
   return data;
 };
@@ -38,11 +38,10 @@ export const deleteCatApi = async (imageId: string) => {
   return data;
 };
 
-// TODO: Figure out why CatOptionType does not work
 export interface VotePost {
   image_id: string;
   value: number;
-  sub_id?: string;
+  sub_id: string;
 }
 
 export interface GetVotesReq {
@@ -55,6 +54,7 @@ export const getVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesReq)
   const { data } = await axios.get(`/votes?sub_id=${sub_id}&page=${page}&limit=${limit}`);
   return data;
 };
+
 export const voteCatApi = async (votePost: VotePost) => {
   const { data } = await axios.post(`/votes`, votePost);
   return data;
@@ -67,10 +67,26 @@ export const deleteVoteApi = async (voteId: string) => {
 
 export interface FavouritePost {
   image_id: string;
-  sub_id?: string;
+  sub_id: string;
 }
+
+interface GetFavouritesReq {
+  sub_id: string;
+  limit?: number;
+  page?: number;
+}
+
+export const getFavouritesApi = async ({ sub_id = appConfig.subId, limit = 100, page = 0 }: GetFavouritesReq) => {
+  const { data } = await axios.get(`/favourites?page=${page}&limit=${limit}&sub_id=${sub_id}`);
+  return data;
+};
 
 export const favouriteCatApi = async (favouritePost: FavouritePost) => {
   const { data } = await axios.post(`/favourites`, favouritePost);
+  return data;
+};
+
+export const unFavouriteCatApi = async (favouriteId: string) => {
+  const { data } = await axios.delete(`/favourites/${favouriteId}`);
   return data;
 };

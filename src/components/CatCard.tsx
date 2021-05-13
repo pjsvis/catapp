@@ -1,14 +1,11 @@
 import React from 'react';
-import { useQueryClient } from 'react-query';
-import { Cat, VotePost } from '../services/cat';
+import { Cat } from '../services/cat';
 import { appConfig } from '../services/app-config';
 import { LikeAdd } from './LikeAdd';
-// import { LikeRemove } from './LikeRemove';
 import { VoteDown } from './VoteDown';
 import { VoteUp } from './VoteUp';
 import { ImageDelete } from './ImageDelete';
-import { useMutation } from 'react-query';
-import { deleteCatApi, favouriteCatApi, FavouritePost, voteCatApi } from '../services/cat-api';
+import { LikeRemove } from './LikeRemove';
 
 interface Props {
   cat: Cat;
@@ -20,17 +17,6 @@ interface Props {
 const catWidth = appConfig.imageSize;
 
 export function CatCard({ cat }: Props) {
-  // TODO: Invalidate cach if delete succeeds
-  // TODO: Add modal to confirm delete
-  const queryClient = useQueryClient();
-  const deleteCat = useMutation((imageId: string) => deleteCatApi(imageId), {
-    onSuccess: () => {
-      queryClient.invalidateQueries('cats');
-    },
-  });
-  const voteCat = useMutation((votePost: VotePost) => voteCatApi(votePost));
-  const favouriteCat = useMutation((favouritePost: FavouritePost) => favouriteCatApi(favouritePost));
-
   return (
     <>
       <div className="cat-card">
@@ -41,20 +27,21 @@ export function CatCard({ cat }: Props) {
           <span>
             <span className="fl">
               <span>
-                <VoteDown onClick={() => voteCat.mutate({ image_id: cat.id, value: 0 })} />
+                <VoteDown cat={cat} />
               </span>
-              <span className="ml2">{/* <LikeRemove onClick={() => likeRemove(cat.id)} /> */}</span>
               <span className="ml2">
-                <ImageDelete onClick={() => deleteCat.mutate(cat.id)} />
+                <LikeRemove cat={cat} />
+              </span>
+              <span className="ml2">
+                <ImageDelete cat={cat} />
               </span>
             </span>
-            {/* <span className="tc">{cat.id}</span> */}
             <span className="fr">
               <span>
-                <VoteUp onClick={() => voteCat.mutate({ image_id: cat.id, value: 1 })} />
+                <VoteUp cat={cat} />
               </span>
               <span className="ml2">
-                <LikeAdd onClick={() => favouriteCat.mutate({ image_id: cat.id })} />
+                <LikeAdd cat={cat} />
               </span>
             </span>
           </span>

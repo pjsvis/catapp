@@ -9,6 +9,7 @@ export const uploadFile = async (
   const headers = { 'x-api-key': appConfig.xApiKey };
   const data = new FormData();
   data.append('file', file);
+  data.append('sub_id', appConfig.subId);
 
   try {
     const res = await axios.post(url, data, { headers: headers });

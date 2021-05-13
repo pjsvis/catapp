@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from 'react-query';
 import { Cat, VotePost } from './cat';
-import { favouriteCatApi, FavouritePost, GetCatQuery, getCats, voteCatApi } from './cat-api';
+import { favouriteCatApi, FavouritePost, GetCatQuery, getCatsApi, voteCatApi } from './cat-api';
 
 export const useGetCats = (query: GetCatQuery) => {
-  return useQuery<Cat[], Error>(['cats', query], () => getCats(query));
+  return useQuery<Cat[], Error>(['cats', query], () => getCatsApi(query));
 };
 
 export const useVoteCat = (votePost: VotePost) => {
