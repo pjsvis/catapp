@@ -1,38 +1,24 @@
-import { useMutation, useQuery } from 'react-query';
-import { Cat, VotePost } from './cat';
+import { useQuery } from 'react-query';
+import { Cat } from './cat';
 import {
   Favourite,
-  favouriteCatApi,
-  FavouritePost,
-  GetCatQuery,
-  getCatsApi,
+  GetCatQuery as GetImagesQuery,
+  getImagesApi,
   getFavouritesApi,
-  GetFavouritesReq,
+  GetFavouritesReq as GetFavouritesQuery,
   getVotesApi,
-  GetVotesReq,
+  GetVotesQuery as GetVotesQuery,
   Vote,
-  voteCatApi,
 } from './cat-api';
 
-export const useGetCats = (query: GetCatQuery) => {
-  return useQuery<Cat[], Error>(['cats', query], () => getCatsApi(query));
+export const useGetImages = (query: GetImagesQuery) => {
+  return useQuery<Cat[], Error>(['cats', query], () => getImagesApi(query));
 };
 
-export const useGetVotes = (query: GetVotesReq) => {
+export const useGetVotes = (query: GetVotesQuery) => {
   return useQuery<Vote[], Error>(['votes', query], () => getVotesApi(query));
 };
 
-export const useGetFavourites = (query: GetFavouritesReq) => {
+export const useGetFavourites = (query: GetFavouritesQuery) => {
   return useQuery<Favourite[], Error>(['favourites', query], () => getFavouritesApi(query));
 };
-
-export const useVoteCat = (votePost: VotePost) => {
-  return useMutation(() => voteCatApi(votePost));
-};
-
-export const useFavouriteCat = (favouritePost: FavouritePost) => {
-  return useMutation(() => favouriteCatApi(favouritePost));
-};
-
-// useDeleteVote
-// useGetVotes

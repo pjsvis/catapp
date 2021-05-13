@@ -2,7 +2,7 @@ import React from 'react';
 import { appConfig } from '../services/app-config';
 import { Cat } from '../services/cat';
 import { Favourite, Vote } from '../services/cat-api';
-import { useGetCats, useGetFavourites } from '../services/use-cat-api';
+import { useGetImages, useGetFavourites } from '../services/use-cat-api';
 import { useGetVotes } from '../services/use-cat-api';
 import { CatCardList } from './CatCardList';
 
@@ -11,7 +11,7 @@ export function Home() {
     isLoading: isLoadingImages,
     error: errorImages,
     data: dataImages,
-  }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useGetCats({
+  }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useGetImages({
     page: 0,
     limit: 20,
   });

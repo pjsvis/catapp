@@ -2,14 +2,14 @@ import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { appConfig } from '../services/app-config';
 import { Cat, VotePost } from '../services/cat';
-import { voteCatApi } from '../services/cat-api';
+import { postVoteApi } from '../services/cat-api';
 
 interface Props {
   cat: Cat;
 }
 export function VoteDown({ cat }: Props) {
   const queryClient = useQueryClient();
-  const voteCat = useMutation((votePost: VotePost) => voteCatApi(votePost), {
+  const voteCat = useMutation((votePost: VotePost) => postVoteApi(votePost), {
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
     },

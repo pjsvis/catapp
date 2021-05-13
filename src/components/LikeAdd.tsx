@@ -2,14 +2,14 @@ import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { appConfig } from '../services/app-config';
 import { Cat } from '../services/cat';
-import { favouriteCatApi, FavouritePost } from '../services/cat-api';
+import { postFavouriteApi, FavouritePost } from '../services/cat-api';
 
 interface Props {
   cat: Cat;
 }
 export function LikeAdd({ cat }: Props) {
   const queryClient = useQueryClient();
-  const favouriteCat = useMutation((favouritePost: FavouritePost) => favouriteCatApi(favouritePost), {
+  const favouriteCat = useMutation((favouritePost: FavouritePost) => postFavouriteApi(favouritePost), {
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
     },

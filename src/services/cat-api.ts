@@ -15,7 +15,7 @@ export interface GetCatQuery {
 }
 
 // Get an array of cat images
-export const getCatsApi = async ({
+export const getImagesApi = async ({
   page = 0,
   limit = 20,
   include_vote = 1,
@@ -33,7 +33,7 @@ export const imageExistsApi = async (original_filename: string): Promise<Cat[]> 
 };
 
 // 204 => success
-export const deleteCatApi = async (imageId: string) => {
+export const deleteImageApi = async (imageId: string) => {
   const { data } = await axios.delete(`/images/${imageId}`);
   return data;
 };
@@ -44,7 +44,7 @@ export interface VotePost {
   sub_id: string;
 }
 
-export interface GetVotesReq {
+export interface GetVotesQuery {
   sub_id: string;
   page?: number;
   limit?: number;
@@ -60,12 +60,12 @@ export interface Vote {
 }
 
 // Get an array of votes
-export const getVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesReq): Promise<Vote[]> => {
+export const getVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
   const { data } = await axios.get(`/votes?sub_id=${sub_id}&page=${page}&limit=${limit}`);
   return data;
 };
 
-export const voteCatApi = async (votePost: VotePost) => {
+export const postVoteApi = async (votePost: VotePost) => {
   const { data } = await axios.post(`/votes`, votePost);
   return data;
 };
@@ -108,12 +108,12 @@ export interface FavouritePost {
   sub_id: string;
 }
 
-export const favouriteCatApi = async (favouritePost: FavouritePost) => {
+export const postFavouriteApi = async (favouritePost: FavouritePost) => {
   const { data } = await axios.post(`/favourites`, favouritePost);
   return data;
 };
 
-export const unFavouriteCatApi = async (favouriteId: string) => {
+export const deleteFavouriteApi = async (favouriteId: string) => {
   const { data } = await axios.delete(`/favourites/${favouriteId}`);
   return data;
 };

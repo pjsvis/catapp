@@ -1,14 +1,14 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Cat } from '../services/cat';
-import { deleteCatApi } from '../services/cat-api';
+import { deleteImageApi } from '../services/cat-api';
 
 interface Props {
   cat: Cat;
 }
 export function ImageDelete({ cat }: Props) {
   const queryClient = useQueryClient();
-  const deleteCat = useMutation((imageId: string) => deleteCatApi(imageId), {
+  const deleteCat = useMutation((imageId: string) => deleteImageApi(imageId), {
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
     },

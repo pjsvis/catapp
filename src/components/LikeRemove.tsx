@@ -1,14 +1,14 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Cat } from '../services/cat';
-import { unFavouriteCatApi } from '../services/cat-api';
+import { deleteFavouriteApi } from '../services/cat-api';
 
 interface Props {
   cat: Cat;
 }
 export function LikeRemove({ cat }: Props) {
   const queryClient = useQueryClient();
-  const likeRemove = useMutation((favouriteId: string) => unFavouriteCatApi(favouriteId), {
+  const likeRemove = useMutation((favouriteId: string) => deleteFavouriteApi(favouriteId), {
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
     },
