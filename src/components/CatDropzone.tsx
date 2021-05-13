@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { UploadResponse } from '../services/cat';
+import { UploadResponse } from '../services/cat-types';
 import { uploadFile } from '../services/upload-file';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

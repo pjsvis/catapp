@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { appConfig } from './app-config';
-import { UploadResponse } from './cat';
+import { UploadResponse } from './cat-types';
 
 export const uploadFile = async (
   file: File,

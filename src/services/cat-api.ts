@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { appConfig } from './app-config';
-import { Cat } from './cat';
+import { Cat } from './cat-types';
 
 axios.defaults.baseURL = appConfig.baseUrl;
 axios.defaults.headers.common['x-api-key'] = appConfig.xApiKey;
 
 type CatOptionType = 0 | 1;
 
-export interface GetCatQuery {
+export interface GetImagesQuery {
   page?: number;
   limit?: number;
   include_vote?: CatOptionType;
@@ -20,7 +20,7 @@ export const getImagesApi = async ({
   limit = 20,
   include_vote = 1,
   include_favourite = 1,
-}: GetCatQuery): Promise<Cat[]> => {
+}: GetImagesQuery): Promise<Cat[]> => {
   const { data } = await axios.get(
     `/images?page=${page}&limit=${limit}&include_vote=${include_vote}&include_favourite=${include_favourite}`,
   );
@@ -45,7 +45,7 @@ export interface VotePost {
 }
 
 export interface GetVotesQuery {
-  sub_id: string;
+  sub_id?: string;
   page?: number;
   limit?: number;
 }
@@ -60,8 +60,14 @@ export interface Vote {
 }
 
 // Get an array of votes
-export const getVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
-  const { data } = await axios.get(`/votes?sub_id=${sub_id}&page=${page}&limit=${limit}`);
+export const getVotesApi = async ({ page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
+  const { data } = await axios.get(`/votes?page=${page}&limit=${limit}`);
+  return data;
+};
+
+// TODO: Deprecate
+export const getMyVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
+  const { data } = await axios.get(`/votes?page=${page}&limit=${limit}&sub_id=${sub_id}`);
   return data;
 };
 
@@ -75,10 +81,10 @@ export const deleteVoteApi = async (voteId: string) => {
   return data;
 };
 
-export interface GetFavouritesReq {
-  sub_id: string;
+export interface GetFavouritesQuery {
   limit?: number;
   page?: number;
+  sub_id?: string;
 }
 
 export interface Image {
@@ -94,11 +100,17 @@ export interface Favourite {
   user_id: string;
 }
 
-export const getFavouritesApi = async ({
+export const getFavouritesApi = async ({ limit = 100, page = 0 }: GetFavouritesQuery): Promise<Favourite[]> => {
+  const { data } = await axios.get(`/favourites?page=${page}&limit=${limit}`);
+  return data;
+};
+
+// TODO: Deprecate
+export const getMyFavouritesApi = async ({
   sub_id = appConfig.subId,
   limit = 100,
   page = 0,
-}: GetFavouritesReq): Promise<Favourite[]> => {
+}: GetFavouritesQuery): Promise<Favourite[]> => {
   const { data } = await axios.get(`/favourites?page=${page}&limit=${limit}&sub_id=${sub_id}`);
   return data;
 };
@@ -113,7 +125,7 @@ export const postFavouriteApi = async (favouritePost: FavouritePost) => {
   return data;
 };
 
-export const deleteFavouriteApi = async (favouriteId: string) => {
+export const deleteFavouriteApi = async (favouriteId: number) => {
   const { data } = await axios.delete(`/favourites/${favouriteId}`);
   return data;
 };

@@ -1,32 +1,37 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { Cat } from '../services/cat';
-import { deleteFavouriteApi } from '../services/cat-api';
+import { Cat } from '../services/cat-types';
+import { deleteFavouriteApi, Favourite } from '../services/cat-api';
+import { appConfig } from '../services/app-config';
+import { getMyFavourites } from '../services/get-counts';
 
 interface Props {
   cat: Cat;
+  favourites: Favourite[];
 }
-export function LikeRemove({ cat }: Props) {
+export function LikeRemove({ cat, favourites }: Props) {
   const queryClient = useQueryClient();
-  const likeRemove = useMutation((favouriteId: string) => deleteFavouriteApi(favouriteId), {
+  const likeRemove = useMutation((favouriteId: number) => deleteFavouriteApi(favouriteId), {
     onSuccess: () => {
-      queryClient.invalidateQueries('cats');
+      queryClient.invalidateQueries('favourites');
     },
   });
 
   const handleLikeRemove = (cat: Cat) => {
-    // TODO: Find favouriteId from cat
-    if (!cat) {
-      return;
-    }
-    const favouriteId = 'XXX';
-    likeRemove.mutate(favouriteId);
+    const myFavourites = getMyFavourites(cat.id, favourites, appConfig.subId);
+    myFavourites.forEach((fav) => likeRemove.mutate(fav.id));
   };
+
+  // If no favourites then hide
+  const myFavourites = getMyFavourites(cat.id, favourites, appConfig.subId);
+  if (myFavourites.length === 0) {
+    return null;
+  }
 
   return (
     <>
       <span
-        className="fa-stack pointer grow shadow-4 br-100"
+        className="fa-stack pointer grow shadow-4 br-100 mr2"
         onClick={() => handleLikeRemove(cat)}
         title="Remove the like for this cat"
       >

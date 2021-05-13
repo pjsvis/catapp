@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { Cat } from '../services/cat';
+import { Cat } from '../services/cat-types';
 import { deleteImageApi } from '../services/cat-api';
 
 interface Props {

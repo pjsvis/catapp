@@ -1,6 +1,6 @@
 import React from 'react';
 import { appConfig } from '../services/app-config';
-import { Cat } from '../services/cat';
+import { Cat } from '../services/cat-types';
 import { Favourite, Vote } from '../services/cat-api';
 import { useGetImages, useGetFavourites } from '../services/use-cat-api';
 import { useGetVotes } from '../services/use-cat-api';
@@ -37,12 +37,12 @@ export function Home() {
     page: 0,
     limit: 20,
   });
-
+  // TODO: Add votes and favourites to cat card props
   return (
     <>
       <div className="ma4">
         <div>
-          <CatCardList cats={dataImages || []} />
+          <CatCardList cats={dataImages || []} votes={dataVotes || []} favourites={dataFavourites || []} />
         </div>
       </div>
       <div>

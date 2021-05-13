@@ -1,15 +1,17 @@
 import { useQuery } from 'react-query';
-import { Cat } from './cat';
+import { Cat } from './cat-types';
 import {
   Favourite,
-  GetCatQuery as GetImagesQuery,
+  GetImagesQuery,
   getImagesApi,
   getFavouritesApi,
-  GetFavouritesReq as GetFavouritesQuery,
+  GetFavouritesQuery,
   getVotesApi,
-  GetVotesQuery as GetVotesQuery,
+  GetVotesQuery,
   Vote,
 } from './cat-api';
+
+export type QueryType = 'cats' | 'votes' | 'favourites';
 
 export const useGetImages = (query: GetImagesQuery) => {
   return useQuery<Cat[], Error>(['cats', query], () => getImagesApi(query));

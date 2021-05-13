@@ -7,8 +7,9 @@ import { Home } from './components/Home';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { NavHeader } from './components/NavHeader';
 
+const queryClient = new QueryClient();
+
 function App() {
-  const queryClient = new QueryClient();
   return (
     <>
       <ErrorBoundary>
