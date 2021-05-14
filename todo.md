@@ -1,26 +1,21 @@
-# todo
+# actions
 
-- add loading spinner
-- add toolbar items for favourites
+## todo
 
-1. [] modern responsive styling
-2. [X] react
-3. [] 3rd party packages
-   1. tachyons
-   2. store2
-   3. state management
-   4. api  management
+## done
 
-4. [] validation & error handling
+- [] validation & error handling
+- [X] add loading spinner
+- [X] add toolbar items for favourites
 
 ## reqs
 
-1. [] You should be able to upload a new cat image
+1. [X] You should be able to upload a new cat image
    1. react-dropzone [https://openbase.com/js/react-dropzone](https://openbase.com/js/react-dropzone)
-2. [] You should be able to view the cat images you uploaded
-3. [] You should be able to favourite and unfavourite a cat
-4. [] You should be able to vote a cat up or down
-5. [] You should see a score on each cat based on the votes
+2. [X] You should be able to view the cat images you uploaded
+3. [X] You should be able to favourite and unfavourite a cat
+4. [X] You should be able to vote a cat up or down
+5. [X] You should see a score on each cat based on the votes
 
 ## The Cat API
 
