@@ -1,11 +1,11 @@
 import { Favourite, Vote } from './cat-api';
 
 export const getAllVotes = (imageId: string, votes: Vote[]) => {
-  return votes.filter((x) => x.image_id === imageId);
+  return votes.filter((x) => x.image_id === imageId && x.value === 1);
 };
 
 export const getMyVotes = (imageId: string, votes: Vote[], subId: string) => {
-  return votes.filter((x) => x.image_id === imageId && x.sub_id === subId);
+  return votes.filter((x) => x.image_id === imageId && x.sub_id === subId && x.value === 1);
 };
 
 export const getAllFavourites = (imageId: string, favourites: Favourite[]) => {

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { UploadResponse } from '../services/cat-types';
 import { uploadFile } from '../services/upload-file';
+import Dropzone from 'react-dropzone';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
@@ -50,17 +51,25 @@ export function CatDropzone() {
             }}
           />
         </div>
+        <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+          {({ getRootProps, getInputProps }) => (
+            <section>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Drag and drop a file here, or click to select files</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
+
         {isUploading ? (
           <div>
-            <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <i className="fa fa-spinner fa-spin fa-lg fa-fw"></i>
             <span className="sr-only">Loading...</span>{' '}
           </div>
         ) : null}
       </div>
       <div>{error ? error.message : null}</div>
-      <div>
-        <pre>{JSON.stringify(response, null, 2)}</pre>
-      </div>
     </>
   );
 }

@@ -23,7 +23,7 @@ export function CatCard({ cat, votes, favourites }: Props) {
   return (
     <>
       <div className="cat-card">
-        <div className="black-60 f6 fr">{cat.id}</div>
+        {/* <div className="black-60 f6 fr">{cat.id}</div> */}
         <div className="fl ml2 mb1">
           <VotesAndFavourites cat={cat} votes={votes} favourites={favourites} />
         </div>
@@ -31,15 +31,15 @@ export function CatCard({ cat, votes, favourites }: Props) {
           <img className="cat-image" src={cat.url} alt={cat.url} width={catWidth} height="auto" />
         </div>
         <div>
-          <div className="flex fl ml2">
+          <div className="flex fr ml2">
             <VoteDown cat={cat} votes={votes} />
             <VoteUp cat={cat} votes={votes} />
             <LikeRemove cat={cat} favourites={favourites} />
             <LikeAdd cat={cat} favourites={favourites} />
           </div>
-          <div className="mr2 fr">
+          {/* <div className="mr2 fr">
             <ImageDelete cat={cat} />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

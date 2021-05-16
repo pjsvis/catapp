@@ -4,9 +4,10 @@ import { CatDropzone } from './CatDropzone';
 export function Upload() {
   return (
     <>
-      <div className="ma4 sans-serif">Upload</div>
-      <div>
-        <CatDropzone />
+      <div className="ma4 center w-50 sans-serif">
+        <div>
+          <CatDropzone />
+        </div>
       </div>
     </>
   );

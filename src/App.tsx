@@ -6,6 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { Home } from './components/Home';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { NavHeader } from './components/NavHeader';
+import { About } from './components/About';
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,9 @@ function App() {
               <NavHeader />
               <div>
                 <Switch>
+                  <Route path="/about">
+                    <About />
+                  </Route>
                   <Route path="/upload">
                     <Upload />
                   </Route>

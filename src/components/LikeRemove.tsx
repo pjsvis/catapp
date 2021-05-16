@@ -35,8 +35,14 @@ export function LikeRemove({ cat, favourites }: Props) {
         onClick={() => handleLikeRemove(cat)}
         title="Remove the like for this cat"
       >
-        <i className="fa fa-heart fa-stack-1x green"></i>
-        <i className="fa fa-ban fa-stack-2x light-red"></i>
+        {likeRemove.isLoading ? (
+          <i className="fa fa-spinner fa-spin fa-stack-1x fa-inverse"></i>
+        ) : (
+          <>
+            <i className="fa fa-heart fa-stack-1x green"></i>
+            <i className="fa fa-ban fa-stack-2x light-red"></i>
+          </>
+        )}
       </span>
     </>
   );

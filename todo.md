@@ -2,9 +2,12 @@
 
 ## todo
 
+- [] validation & error handling
+- [] resolve vote/fav actions
+- [] add paging 
+
 ## done
 
-- [] validation & error handling
 - [X] add loading spinner
 - [X] add toolbar items for favourites
 

@@ -13,7 +13,8 @@ export function Home() {
     data: dataImages,
   }: { isLoading: boolean; error: Error | null; data: Cat[] | undefined } = useGetImages({
     page: 0,
-    limit: 20,
+    limit: 100,
+    sub_id: appConfig.subId,
   });
 
   const {
@@ -24,7 +25,7 @@ export function Home() {
   }: { isLoading: boolean; error: Error | null; data: Vote[] | undefined } = useGetVotes({
     sub_id: appConfig.subId,
     page: 0,
-    limit: 20,
+    limit: 100,
   });
 
   const {
@@ -35,9 +36,9 @@ export function Home() {
   }: { isLoading: boolean; error: Error | null; data: Favourite[] | undefined } = useGetFavourites({
     sub_id: appConfig.subId,
     page: 0,
-    limit: 20,
+    limit: 100,
   });
-  // TODO: Add votes and favourites to cat card props
+
   return (
     <>
       <div className="ma4">
@@ -60,7 +61,7 @@ export function Home() {
 
       <div>{isLoadingFavourites ? <i className="fa fas-spinner" /> : null}</div>
       <div>
-        {errorFavourites ? <span>An error occurred loading the cat votes: {errorFavourites.message}</span> : null}
+        {errorFavourites ? <span>An error occurred loading the cat favourites: {errorFavourites.message}</span> : null}
       </div>
     </>
   );

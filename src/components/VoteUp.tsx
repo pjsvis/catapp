@@ -18,9 +18,8 @@ export function VoteUp({ cat, votes }: Props) {
     },
   });
 
-  // If already voted then cannot vote again votes then cannot vote down
+  // If already voted then cannot vote again
   const myVotes = getMyVotes(cat.id, votes, appConfig.subId);
-  console.log('myVotesCount', myVotes.length);
   if (myVotes.length > 0) {
     return null;
   }

@@ -12,6 +12,7 @@ export interface GetImagesQuery {
   limit?: number;
   include_vote?: CatOptionType;
   include_favourite?: CatOptionType;
+  sub_id?: string;
 }
 
 // Get an array of cat images
@@ -22,7 +23,7 @@ export const getImagesApi = async ({
   include_favourite = 1,
 }: GetImagesQuery): Promise<Cat[]> => {
   const { data } = await axios.get(
-    `/images?page=${page}&limit=${limit}&include_vote=${include_vote}&include_favourite=${include_favourite}`,
+    `/images?page=${page}&limit=${limit}&include_vote=${include_vote}&include_favourite=${include_favourite}&order=Asc`,
   );
   return data;
 };
@@ -61,7 +62,7 @@ export interface Vote {
 
 // Get an array of votes
 export const getVotesApi = async ({ page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
-  const { data } = await axios.get(`/votes?page=${page}&limit=${limit}`);
+  const { data } = await axios.get(`/votes?page=${page}&limit=${limit}&order=Asc`);
   return data;
 };
 
@@ -76,7 +77,7 @@ export const postVoteApi = async (votePost: VotePost) => {
   return data;
 };
 
-export const deleteVoteApi = async (voteId: string) => {
+export const deleteVoteApi = async (voteId: number) => {
   const { data } = await axios.delete(`/images/${voteId}`);
   return data;
 };
@@ -101,11 +102,10 @@ export interface Favourite {
 }
 
 export const getFavouritesApi = async ({ limit = 100, page = 0 }: GetFavouritesQuery): Promise<Favourite[]> => {
-  const { data } = await axios.get(`/favourites?page=${page}&limit=${limit}`);
+  const { data } = await axios.get(`/favourites?page=${page}&limit=${limit}&order=Asc`);
   return data;
 };
 
-// TODO: Deprecate
 export const getMyFavouritesApi = async ({
   sub_id = appConfig.subId,
   limit = 100,

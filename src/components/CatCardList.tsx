@@ -12,7 +12,7 @@ type Props = {
 export function CatCardList({ cats, votes, favourites }: Props) {
   return (
     <>
-      <div className="content mt1  animate__animated animate__fadeIn animate__delay-1s">
+      <div className="content mt1  ">
         <div className="grid-container">
           {cats.map((cat) => (
             <div key={cat.id}>

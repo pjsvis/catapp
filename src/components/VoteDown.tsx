@@ -11,7 +11,8 @@ interface Props {
 }
 export function VoteDown({ cat, votes }: Props) {
   const queryClient = useQueryClient();
-  const voteCat = useMutation((votePost: VotePost) => postVoteApi(votePost), {
+  const votePost: VotePost = { image_id: cat.id, value: 0, sub_id: appConfig.subId };
+  const voteCat = useMutation(() => postVoteApi(votePost), {
     onSuccess: () => {
       queryClient.invalidateQueries('votes');
     },
@@ -27,14 +28,14 @@ export function VoteDown({ cat, votes }: Props) {
     <>
       <span
         className="fa-stack pointer grow shadow-4 br-100 mr2"
-        onClick={() => voteCat.mutate({ image_id: cat.id, value: 0, sub_id: appConfig.subId })}
+        onClick={() => voteCat.mutate()}
         title="Vote this cat down"
       >
+        <i className="fa fa-circle fa-stack-2x red"></i>
         {voteCat.isLoading ? (
           <i className="fa fa-spinner fa-spin fa-stack-1x fa-inverse"></i>
         ) : (
           <>
-            <i className="fa fa-circle fa-stack-2x red"></i>
             <i className="fa fa-thumbs-down fa-stack-1x fa-inverse"></i>
           </>
         )}

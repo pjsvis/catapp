@@ -11,7 +11,8 @@ interface Props {
 }
 export function LikeAdd({ cat, favourites }: Props) {
   const queryClient = useQueryClient();
-  const favouriteCat = useMutation((favouritePost: FavouritePost) => postFavouriteApi(favouritePost), {
+  const favouritePost: FavouritePost = { image_id: cat.id, sub_id: appConfig.subId };
+  const favouriteCat = useMutation(() => postFavouriteApi(favouritePost), {
     onSuccess: () => {
       queryClient.invalidateQueries('favourites');
     },
@@ -27,11 +28,15 @@ export function LikeAdd({ cat, favourites }: Props) {
     <>
       <span
         className="fa-stack pointer grow shadow-4 br-100 mr2"
-        onClick={() => favouriteCat.mutate({ image_id: cat.id, sub_id: appConfig.subId })}
+        onClick={() => favouriteCat.mutate()}
         title="Add a like for this cat"
       >
         <i className="fa fa-circle fa-stack-2x green"></i>
-        <i className="fa fa-heart fa-stack-1x fa-inverse"></i>
+        {favouriteCat.isLoading ? (
+          <i className="fa fa-spinner fa-spin fa-stack-1x fa-inverse"></i>
+        ) : (
+          <i className="fa fa-heart fa-stack-1x fa-inverse"></i>
+        )}
       </span>
     </>
   );

@@ -13,6 +13,10 @@ export function NavHeader() {
             <i className="fa fa-lg fa-cloud-upload mr2" />
             Upload
           </a>
+          <a className="link dim white dib mr3" href="/about" title="About">
+            <i className="fa fa-lg fa-question-circle mr2" />
+            About
+          </a>
           <div className="fr white f3">cat app</div>
         </nav>
       </header>
