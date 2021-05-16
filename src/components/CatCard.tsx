@@ -15,14 +15,13 @@ interface Props {
 
 // NOTE: .grid-container div width is 150 in tachyons-ext.css
 // NOTE: We set the image width to 150px
-// TODO: Find all refs to 150
 const catWidth = appConfig.imageSize;
 
 export function CatCard({ cat, votes, favourites }: Props) {
   return (
     <>
       <div className="cat-card">
-        <div className="black-60 f6 fr">{cat.id}</div>
+        <div className="black-60 f6 fr mr2">{cat.original_filename}</div>
         <div className="fl ml2 mb1">
           <VotesAndFavourites cat={cat} votes={votes} favourites={favourites} />
         </div>

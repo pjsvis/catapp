@@ -1,28 +1,25 @@
-import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { UploadResponse } from '../services/cat-types';
 import { uploadFile } from '../services/upload-file';
 import Dropzone from 'react-dropzone';
 import to from 'await-to-js';
+import { imageExistsApi } from '../services/cat-api';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
 export function CatDropzone() {
   const [errorMsg, setErrorMsg] = useState<string>('');
-  const [response, setResponse] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const queryClient = useQueryClient();
 
   const handleResponse = (res: unknown) => {
     console.log('Upload Response: ', res);
-    setResponse('File uploaded');
     queryClient.invalidateQueries('cats');
   };
 
-  const validateFile = (file: File) => {
+  const validateFile = async (file: File) => {
     console.log('File', file);
     const mimeType = file.type;
     let isOk = false;
@@ -41,7 +38,17 @@ export function CatDropzone() {
       setErrorMsg('You can only upload image/png and image/jpeg file types');
       return false;
     }
+    const isFileExists = await fileExists(file.name);
+    if (isFileExists) {
+      setErrorMsg(`A file called ${file.name} already exists on the server. Please choose another file.`);
+    }
     return true;
+  };
+
+  const fileExists = async (fileName: string) => {
+    const [err, res] = await to(imageExistsApi(fileName));
+    err ? setErrorMsg('An error occurred when trying to call the server. Please try again.') : noop();
+    return res && res.length > 0;
   };
 
   const handleUpload = async (files: File[]) => {
@@ -52,7 +59,6 @@ export function CatDropzone() {
     setIsUploading(true);
     setFile(file);
     setErrorMsg('');
-    setResponse(null);
     const [err, res] = await to(uploadFile(file));
     setIsUploading(false);
     err ? setErrorMsg(err.message) : noop();
@@ -71,7 +77,7 @@ export function CatDropzone() {
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()}>
-              <div className="ba b--black-10 bg-washed-blue pa4 pt6 pb6 shadow-4 mt6 pointer">
+              <div className="ba b--black-10 bg-washed-blue pa4 pt6 pb6 shadow-4 mt2 pointer">
                 <div className="f4 mb2 center fit-w">Upload File</div>
                 <div className="blue center fit-w mt2">
                   <i className="fa fa-3x fa-cloud-upload"></i>
@@ -81,9 +87,9 @@ export function CatDropzone() {
                   <div className="center fit-w mt2">Drag and drop a file here, or click to select files...</div>
                 </form>
                 {isUploading ? (
-                  <div className="fit-w center">
+                  <div className="fit-w center mt2">
                     <i className="fa fa-spinner fa-spin fa-lg fa-fw"></i>
-                    <span className="">Uploading file {file && file.name}...</span>{' '}
+                    <span className="ml2">Uploading file {file && file.name}...</span>{' '}
                   </div>
                 ) : null}
               </div>
@@ -96,7 +102,6 @@ export function CatDropzone() {
           <div className="ba b--black-10 mt2 bg-washed-red pa4 mt4 shadow-4">
             <div className="f4 mb2">Upload Error</div>
             <div>{errorMsg ? errorMsg : null}</div>
-            <div>{response ? <div>{response}</div> : null}</div>
             <button className="mt2" onClick={clearError}>
               Clear
             </button>

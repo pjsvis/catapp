@@ -1,9 +1,12 @@
 export interface Cat {
   breeds: Breeds[];
+  created_at: string;
+  height: number;
   id: string;
+  original_filename: string;
+  sub_id: string;
   url: string;
   width: number;
-  height: number;
 }
 
 export interface Breeds {

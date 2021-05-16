@@ -5,7 +5,7 @@ import { Favourite, Vote } from '../services/cat-api';
 import { useGetImages, useGetFavourites } from '../services/use-cat-api';
 import { useGetVotes } from '../services/use-cat-api';
 import { CatCardList } from './CatCardList';
-import { ResetAll } from './ResetAll';
+// import { ResetAll } from './ResetAll';
 
 export function Home() {
   const {
@@ -42,11 +42,11 @@ export function Home() {
 
   return (
     <>
-      <div className="bg-black-10 w-100 ph3 pv1 pv1-ns ph4-m ph5-l">
+      {/* <div className="bg-black-10 w-100 ph3 pv1 pv1-ns ph4-m ph5-l">
         <div className="mr1">
           <ResetAll images={dataImages || []} votes={dataVotes || []} favourites={dataFavourites || []} />
         </div>
-      </div>
+      </div> */}
       <div className="ma4">
         {(!isLoadingImages && !dataImages) || (dataImages && dataImages.length === 0) ? (
           <div className="ba b--black-10 shadow-5 pa4 center fit-w">No cat images have been uploaded yet.</div>
