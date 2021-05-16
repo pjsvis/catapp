@@ -12,7 +12,7 @@ The app was create as a programming exercise for Waracle. The requirement was to
 
 - The api serves up three data sets: images, votes, and favourites
 - The documentation notes that the votes and favourites can be included in the images dataset but this does not appear to work.
-- Consequently 
+- Delete Vote reports success but does not delete vote
 
 `;
 

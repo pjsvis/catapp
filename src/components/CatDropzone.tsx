@@ -60,30 +60,24 @@ export function CatDropzone() {
     console.log('Upload Response when error: ', res);
     res && res ? handleResponse(res) : noop();
   };
+
   const clearError = () => {
     setErrorMsg('');
   };
+
   return (
     <>
-      {/* <div className="ba b--black-10 shadow-5 mt4 pa4 center"> */}
-      {/* <div>
-          <input
-            type="file"
-            onChange={(e) => {
-              if (e.target.files) {
-                handleUpload(e.target.files[0]);
-              }
-            }}
-          />
-        </div> */}
-      <div className="ba b--black-10 bg-washed-blue pa2 pointer">
+      <div className="ba b--black-10 bg-washed-blue pa4 shadow-4 mt6 pointer">
         <Dropzone onDrop={(acceptedFiles) => handleUpload(acceptedFiles)}>
           {({ getRootProps, getInputProps }) => (
             <section>
               <div {...getRootProps()}>
+                <div className="blue center fit-w mt2">
+                  <i className="fa fa-3x fa-cloud-upload"></i>
+                </div>
                 <form id="upload">
                   <input {...getInputProps()} />
-                  <p>Drag and drop a file here, or click to select files</p>
+                  <div className="center fit-w mt2">Drag and drop a file here, or click to select files</div>
                 </form>
                 {isUploading ? (
                   <div>

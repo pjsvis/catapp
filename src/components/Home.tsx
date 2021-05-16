@@ -48,7 +48,7 @@ export function Home() {
         </div>
       </div>
       <div className="ma4">
-        {!dataImages || (dataImages && dataImages.length === 0) ? (
+        {(!isLoadingImages && !dataImages) || (dataImages && dataImages.length === 0) ? (
           <div className="ba b--black-10 shadow-5 pa4 center fit-w">No cat images have been uploaded yet.</div>
         ) : null}
         <div>
