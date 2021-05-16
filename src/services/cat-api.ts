@@ -71,7 +71,6 @@ export const getVotesApi = async ({ page = 0, limit = 20 }: GetVotesQuery): Prom
   return data;
 };
 
-// TODO: Deprecate
 export const getMyVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
   const { data } = await axios.get(`/votes?page=${page}&limit=${limit}&sub_id=${sub_id}`);
   return data;
