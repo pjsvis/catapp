@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'tachyons';
-import 'animate.css';
 import './styles/tachyons-ext.css';
 import 'font-awesome/css/font-awesome.min.css';
 
