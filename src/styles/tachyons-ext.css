@@ -48,3 +48,17 @@ h1 {
   text-align: center;
   font-style: italic;
 }
+
+/* Additional styles for fitting divs to content */
+.fit-h {
+  height: fit-content;
+}
+
+.fit-w {
+  width: fit-content;
+}
+
+.fit {
+  height: fit-content;
+  width: fit-content;
+}

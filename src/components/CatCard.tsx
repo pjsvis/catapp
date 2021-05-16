@@ -4,7 +4,6 @@ import { appConfig } from '../services/app-config';
 import { LikeAdd } from './LikeAdd';
 import { VoteDown } from './VoteDown';
 import { VoteUp } from './VoteUp';
-import { ImageDelete } from './ImageDelete';
 import { LikeRemove } from './LikeRemove';
 import { VotesAndFavourites } from './VotesAndFavourites';
 import { Favourite, Vote } from '../services/cat-api';
@@ -23,7 +22,7 @@ export function CatCard({ cat, votes, favourites }: Props) {
   return (
     <>
       <div className="cat-card">
-        {/* <div className="black-60 f6 fr">{cat.id}</div> */}
+        <div className="black-60 f6 fr">{cat.id}</div>
         <div className="fl ml2 mb1">
           <VotesAndFavourites cat={cat} votes={votes} favourites={favourites} />
         </div>

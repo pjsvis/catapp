@@ -4,44 +4,69 @@ import { useQueryClient } from 'react-query';
 import { UploadResponse } from '../services/cat-types';
 import { uploadFile } from '../services/upload-file';
 import Dropzone from 'react-dropzone';
+import to from 'await-to-js';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
-const validateFile = (file: File) => {
-  // TODO: Validate file
-  // TODO: Check if original_filename exists
-  console.log(file);
-};
-
 export function CatDropzone() {
-  const [error, setError] = useState<Error | null>(null);
-  const [response, setResponse] = useState<AxiosResponse<UploadResponse> | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [response, setResponse] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   const queryClient = useQueryClient();
 
-  const handleResponse = (res: AxiosResponse<UploadResponse>) => {
-    setResponse(res);
+  const handleResponse = (res: unknown) => {
+    console.log('Upload Response: ', res);
+    setResponse('File uploaded');
     queryClient.invalidateQueries('cats');
-    console.log(res);
   };
 
-  const handleUpload = async (file: File) => {
-    validateFile(file);
+  const validateFile = (file: File) => {
+    console.log('File', file);
+    const mimeType = file.type;
+    let isOk = false;
+    switch (mimeType) {
+      case 'image/png':
+        isOk = true;
+        break;
+      case 'image/jpeg':
+        isOk = true;
+        break;
+      default:
+        isOk = false;
+        ``;
+    }
+    if (!isOk) {
+      setErrorMsg('You can only upload image/png and image/jpeg file types');
+      return false;
+    }
+    return true;
+  };
+
+  const handleUpload = async (files: File[]) => {
+    const file = files[0];
+    if (!validateFile(file)) {
+      return;
+    }
     setIsUploading(true);
-    setError(null);
+    setFile(file);
+    setErrorMsg('');
     setResponse(null);
-    const [res, err] = await uploadFile(file);
+    const [err, res] = await to(uploadFile(file));
     setIsUploading(false);
-    err ? setError(err) : noop();
-    res ? handleResponse(res) : noop();
-    // TODO: Invalidate query to update results
+    err ? setErrorMsg(err.message) : noop();
+    console.log('Upload error: ', err);
+    console.log('Upload Response when error: ', res);
+    res && res ? handleResponse(res) : noop();
   };
-
+  const clearError = () => {
+    setErrorMsg('');
+  };
   return (
     <>
-      <div className="ba b--black-10 shadow-5 mt4 pa-2 center">
-        <div>
+      {/* <div className="ba b--black-10 shadow-5 mt4 pa4 center"> */}
+      {/* <div>
           <input
             type="file"
             onChange={(e) => {
@@ -50,26 +75,36 @@ export function CatDropzone() {
               }
             }}
           />
-        </div>
-        <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+        </div> */}
+      <div className="ba b--black-10 bg-washed-blue pa2 pointer">
+        <Dropzone onDrop={(acceptedFiles) => handleUpload(acceptedFiles)}>
           {({ getRootProps, getInputProps }) => (
             <section>
               <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <p>Drag and drop a file here, or click to select files</p>
+                <form id="upload">
+                  <input {...getInputProps()} />
+                  <p>Drag and drop a file here, or click to select files</p>
+                </form>
+                {isUploading ? (
+                  <div>
+                    <i className="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                    <span className="">Uploading file {file && file.name}...</span>{' '}
+                  </div>
+                ) : null}
               </div>
             </section>
           )}
         </Dropzone>
-
-        {isUploading ? (
-          <div>
-            <i className="fa fa-spinner fa-spin fa-lg fa-fw"></i>
-            <span className="sr-only">Loading...</span>{' '}
+      </div>
+      <div>
+        {errorMsg ? (
+          <div className="2ba b--black-10 mt2 bg-washed-red pa2">
+            <div>{errorMsg ? errorMsg : null}</div>
+            <div>{response ? <div>{response}</div> : null}</div>
+            <button onClick={clearError}>Clear</button>
           </div>
         ) : null}
       </div>
-      <div>{error ? error.message : null}</div>
     </>
   );
 }

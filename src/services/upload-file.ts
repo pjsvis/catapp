@@ -10,11 +10,5 @@ export const uploadFile = async (
   const data = new FormData();
   data.append('file', file);
   data.append('sub_id', appConfig.subId);
-
-  try {
-    const res = await axios.post(url, data, { headers: headers });
-    return [res, null];
-  } catch (error) {
-    return [null, error];
-  }
+  return await axios.post(url, data, { headers: headers });
 };

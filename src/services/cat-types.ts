@@ -56,5 +56,6 @@ export interface VotePost {
 
 export interface UploadResponse {
   status: number;
-  statusMessage: string;
+  message: string;
+  level: string;
 }

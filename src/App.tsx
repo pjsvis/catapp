@@ -16,7 +16,7 @@ function App() {
       <ErrorBoundary>
         <Router>
           <QueryClientProvider client={queryClient}>
-            <div className="flex flex-column top-0">
+            <div className="flex flex-column top-0 sans-serif">
               <NavHeader />
               <div>
                 <Switch>

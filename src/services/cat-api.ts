@@ -28,6 +28,11 @@ export const getImagesApi = async ({
   return data;
 };
 
+export const getImageApi = async (imageId: string): Promise<Cat[]> => {
+  const { data } = await axios.get(`/images/${imageId}`);
+  return data;
+};
+
 export const imageExistsApi = async (original_filename: string): Promise<Cat[]> => {
   const { data } = await axios.get(`/images?original_filename=${original_filename}`);
   return data;
@@ -78,7 +83,7 @@ export const postVoteApi = async (votePost: VotePost) => {
 };
 
 export const deleteVoteApi = async (voteId: number) => {
-  const { data } = await axios.delete(`/images/${voteId}`);
+  const { data } = await axios.delete(`/votes/${voteId}`);
   return data;
 };
 

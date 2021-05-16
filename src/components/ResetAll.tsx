@@ -2,7 +2,6 @@ import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteImageApi, deleteVoteApi, Favourite, Vote } from '../services/cat-api';
 import { Cat } from '../services/cat-types';
-import { VotesAndFavourites } from './VotesAndFavourites';
 
 interface Props {
   images: Cat[];
@@ -20,16 +19,20 @@ export function ResetAll({ images, votes, favourites }: Props) {
 
   const deleteAll = async (images: Cat[], votes: Vote[], favourites: Favourite[]) => {
     await favourites.forEach((favourite) => {
-      deleteFavourite.mutate(favourite.id);
+      setTimeout(() => {
+        deleteFavourite.mutate(favourite.id);
+      }, 100);
     });
-
+    await queryClient.invalidateQueries('favourites');
     await votes.forEach((vote) => {
-      deleteVote.mutate(vote.id);
+      setTimeout(() => {
+        deleteVote.mutate(vote.id);
+      }, 100);
     });
-
+    await queryClient.invalidateQueries('votes');
     await images.forEach((image) => deleteCat.mutate(image.id));
 
-    queryClient.invalidateQueries(['cats', 'votes', 'favourites']);
+    await queryClient.invalidateQueries('cats');
   };
 
   return (
@@ -37,7 +40,7 @@ export function ResetAll({ images, votes, favourites }: Props) {
       <span
         className="fa-stack pointer grow shadow-4 br-100"
         onClick={() => deleteAll(images, votes, favourites)}
-        title="Delete this cat"
+        title="Delete all cat images, favourites, and votes"
       >
         <i className="fa fa-circle fa-stack-2x red"></i>
         <i className="fa fa-trash fa-stack-1x fa-inverse"></i>
