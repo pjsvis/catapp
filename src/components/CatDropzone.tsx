@@ -67,35 +67,39 @@ export function CatDropzone() {
 
   return (
     <>
-      <div className="ba b--black-10 bg-washed-blue pa4 shadow-4 mt6 pointer">
-        <Dropzone onDrop={(acceptedFiles) => handleUpload(acceptedFiles)}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
+      <Dropzone onDrop={(acceptedFiles) => handleUpload(acceptedFiles)}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <div {...getRootProps()}>
+              <div className="ba b--black-10 bg-washed-blue pa4 pt6 pb6 shadow-4 mt6 pointer">
+                <div className="f4 mb2 center fit-w">Upload File</div>
                 <div className="blue center fit-w mt2">
                   <i className="fa fa-3x fa-cloud-upload"></i>
                 </div>
                 <form id="upload">
                   <input {...getInputProps()} />
-                  <div className="center fit-w mt2">Drag and drop a file here, or click to select files</div>
+                  <div className="center fit-w mt2">Drag and drop a file here, or click to select files...</div>
                 </form>
                 {isUploading ? (
-                  <div>
+                  <div className="fit-w center">
                     <i className="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                     <span className="">Uploading file {file && file.name}...</span>{' '}
                   </div>
                 ) : null}
               </div>
-            </section>
-          )}
-        </Dropzone>
-      </div>
+            </div>
+          </section>
+        )}
+      </Dropzone>
       <div>
         {errorMsg ? (
-          <div className="2ba b--black-10 mt2 bg-washed-red pa2">
+          <div className="ba b--black-10 mt2 bg-washed-red pa4 mt4 shadow-4">
+            <div className="f4 mb2">Upload Error</div>
             <div>{errorMsg ? errorMsg : null}</div>
             <div>{response ? <div>{response}</div> : null}</div>
-            <button onClick={clearError}>Clear</button>
+            <button className="mt2" onClick={clearError}>
+              Clear
+            </button>
           </div>
         ) : null}
       </div>
