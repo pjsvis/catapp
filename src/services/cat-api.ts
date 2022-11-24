@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { appConfig } from './app-config';
 import { Cat } from './cat-types';
+import { useQuery } from 'react-query';
 
 axios.defaults.baseURL = appConfig.baseUrl;
 axios.defaults.headers.common['x-api-key'] = appConfig.xApiKey;
@@ -33,10 +34,36 @@ export const getImageApi = async (imageId: string): Promise<Cat[]> => {
   return data;
 };
 
+interface Group {
+  id: number;
+  name: string;
+}
+
+const getGroups = (groupId: number): Promise<Group> => {
+  return axios.get(`/groups/${groupId}`).then((res) => res.data);
+}
+
+
+export const useGroups = (groupId: number) => {
+  return useQuery('groups', () => getGroups(groupId));
+}
+
+
+const groups = useGroups(23)
+if (groups.isError) {
+  console.log('Groups error', groups.error);
+}
+if (!groups.isSuccess) {
+  console.log('No groups')
+}
+
+
 export const imageExistsApi = async (original_filename: string): Promise<Cat[]> => {
   const { data } = await axios.get(`/images?original_filename=${original_filename}`);
   return data;
 };
+
+
 
 // 204 => success
 export const deleteImageApi = async (imageId: string) => {
@@ -70,6 +97,8 @@ export const getVotesApi = async ({ page = 0, limit = 20 }: GetVotesQuery): Prom
   const { data } = await axios.get(`/votes?page=${page}&limit=${limit}&order=Asc`);
   return data;
 };
+
+
 
 export const getMyVotesApi = async ({ sub_id, page = 0, limit = 20 }: GetVotesQuery): Promise<Vote[]> => {
   const { data } = await axios.get(`/votes?page=${page}&limit=${limit}&sub_id=${sub_id}`);

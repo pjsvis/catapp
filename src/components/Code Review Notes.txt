@@ -1,0 +1,5 @@
+Code Review Notes
+
+1. The account patch does not return a promise so I am not sure how to chain the success and failure methods.
+2. The success and failure methods in personal details are sent in through props. Should we do this with the smart prefs form?
+3. The onSubmit method is lifted up into the props of the parent component for its implementation. Once there it can only be run in-line to maintain the scope of the values.
